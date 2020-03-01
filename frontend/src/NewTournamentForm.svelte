@@ -144,11 +144,15 @@
 
 		<p><small>TV91U2jibTYC9EFrF5GMdqAsJ38WBY5aWeFSrWF17axoAtN</small></p>
 
-		<button>Pay via Xpring</button>
+		{#if !hasPaid}
+			<button on:click={() => hasPaid = true}>Pay via Xpring</button>
 
-		<button>Pay via carbon.money</button>
+			<button on:click={() => hasPaid = true}>>Pay via carbon.money</button>
 
-		<button>Check for payment</button>
+			<button on:click={() => hasPaid = true}>>Check for payment</button>
+		{:else}
+			<p>Thank you!</p>
+		{/if}
 	</section>
 	{/if}
 	
