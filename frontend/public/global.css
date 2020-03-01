@@ -62,6 +62,9 @@ header {
 	place-items: center;
 }
 
+section {
+	gap: 0.5rem;
+}
 
 form {
 	display: grid;

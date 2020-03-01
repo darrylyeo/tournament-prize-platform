@@ -1,4 +1,6 @@
 <script>
+	import { addTournament } from './firestore.js'
+
 	const defaultTournamentConfig = {
 		name: '',
 		startingPrizePool: 0,
@@ -28,11 +30,14 @@
 
 	$: totalDistribution = prizeDistribution.firstPrize + prizeDistribution.secondPrize + prizeDistribution.semiFinalists * 2 + prizeDistribution.quarterFinalists * 4 + prizeDistribution.gameHost
 
-	const onTournamentFormSubmit = e => {
+	async function onTournamentFormSubmit(e){
 		console.log(e, tournament)
+
+		const document = await addTournament(tournament)
+		console.log(document)
 	}
 
-	const resetForm = () => {
+	function resetForm(){
 		Object.assign(tournament, defaultTournamentConfig)
 	}
 </script>
