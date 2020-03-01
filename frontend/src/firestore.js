@@ -34,6 +34,11 @@ function getTournament(tournamentID){
 }
 
 export {
+<<<<<<< HEAD
 	addTournament,
 	getTournament
 }
+=======
+	addTournament
+}
+>>>>>>> bb8284ef743d8dbf7ed8c7359755477666c27b86
