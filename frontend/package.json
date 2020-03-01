@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "firebase": "7.9.2",
-    "sirv-cli": "^0.4.4"
+    "sirv-cli": "^0.4.4",
+    "xpring-js": "^1.4.0"
   }
 }
