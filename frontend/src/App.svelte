@@ -25,7 +25,7 @@
 	import { fly } from 'svelte/transition'
 </script>
 
-<svelte:body on:hashchange={onNavigate}/>
+<svelte:body on:hashchange={onNavigate} class:home={$route === '/'} />
 
 <header>
 	<div id="logo">
