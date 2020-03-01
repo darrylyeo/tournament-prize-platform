@@ -119,7 +119,7 @@ input.inline {
 
 ::placeholder {
 	color: var(--color);
-	opacity: 0.6;
+	opacity: 0.5;
 }
 
 button {
