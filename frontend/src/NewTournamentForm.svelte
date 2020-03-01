@@ -1,8 +1,11 @@
 <script>
+	import { addTournament } from './firestore.js'
+
 	const defaultTournamentConfig = {
 		name: '',
+		organizer: '',
 		startingPrizePool: 0,
-		minEntryFree: 0,
+		minEntryFee: 0,
 		minPlayers: 4,
 		maxPlayers: 32,
 		unlimitedPlayers: false,
@@ -28,11 +31,14 @@
 
 	$: totalDistribution = prizeDistribution.firstPrize + prizeDistribution.secondPrize + prizeDistribution.semiFinalists * 2 + prizeDistribution.quarterFinalists * 4 + prizeDistribution.gameHost
 
-	const onTournamentFormSubmit = e => {
+	async function onTournamentFormSubmit(e){
 		console.log(e, tournament)
+
+		const document = await addTournament(tournament)
+		console.log(document)
 	}
 
-	const resetForm = () => {
+	function resetForm(){
 		Object.assign(tournament, defaultTournamentConfig)
 	}
 </script>
@@ -43,7 +49,12 @@
 	<section class="full">
 		<label>
 			<span>Tournament Name</span>
-			<input type="text" name="tournament-name" placeholder="SLO Hacks 2020 Super Smash Bros Ultimate Tournament">
+			<input type="text" name="tournament-name" placeholder="e.g. SLO Hacks 2020 Super Smash Bros Ultimate Tournament" bind:value={tournament.name}>
+		</label>
+
+		<label>
+			<span>Organizer Name</span>
+			<input type="text" name="organizer" placeholder="Mr. Game & Watch" bind:value={tournament.organizer}>
 		</label>
 	</section>
 
@@ -56,7 +67,7 @@
 
 		<label>
 			<span>Minimum Entry Fee</span>
-			<span><input type="number" name="entry-fee" placeholder="0.00" bind:value={tournament.minEntryFree}> <span class="unit">XRP</span></span>
+			<span><input type="number" name="entry-fee" placeholder="0.00" bind:value={tournament.minEntryFee}> <span class="unit">XRP / player</span></span>
 		</label>
 
 		<label>
@@ -113,7 +124,7 @@
 	<section>
 		<h3 icon="🎮">Game on!</h3>
 		<div>
-			<button type="submit">Publish Tournament</button>
+			<input type="submit" value="Publish Tournament" />
 			<button on:click={resetForm}>Start Over</button>
 		</div>
 	</section>
