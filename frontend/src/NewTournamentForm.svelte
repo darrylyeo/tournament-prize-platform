@@ -140,22 +140,22 @@
 	<section transition:fly={{y: 300}}>
 		<h3 icon="💵">Supply the starting pool</h3>
 
-		<p>Please send <b>{tournament.startingPrizePool} XRP <small>(${tournament.startingPrizePool * XRP_to_USD})</small></b> to the following wallet address:</p>
+		<p>Please send <b>{tournament.startingPrizePool} XRP (${tournament.startingPrizePool * XRP_to_USD})</b> to the following wallet address:</p>
 
-		<p><b>TV91U2jibTYC9EFrF5GMdqAsJ38WBY5aWeFSrWF17axoAtN</b></p>
-
-		<button>Check for payment</button>
+		<p><small>TV91U2jibTYC9EFrF5GMdqAsJ38WBY5aWeFSrWF17axoAtN</small></p>
 
 		<button>Pay via Xpring</button>
 
 		<button>Pay via carbon.money</button>
+
+		<button>Check for payment</button>
 	</section>
 	{/if}
 	
 	<section>
 		<h3 icon="🎮">Game on!</h3>
 		<div>
-			<input type="submit" value="Publish Tournament" disabled={!canSubmit} />
+			<input type="submit" value={hasPaid ? 'Publish Tournament' : 'Please supply the starting pool'} disabled={!canSubmit} />
 			<button on:click|preventDefault={resetForm}>Start Over</button>
 		</div>
 	</section>

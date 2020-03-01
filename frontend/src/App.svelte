@@ -30,7 +30,7 @@
 <header class:home={$route === '/'}>
 	<a href="#/">
 		<div id="logo">
-			<h1><i>🏆</i> Tourney<b>Earney</b></h1>
+			<h1 icon="🏆"><!--<i>🏆</i> -->Tourney<b>Earney</b></h1>
 		</div>
 		<div>
 			Dead simple tournament prize distribution
