@@ -25,18 +25,23 @@
 	import { fly } from 'svelte/transition'
 </script>
 
-<svelte:body on:hashchange={onNavigate} class:home={$route === '/'} />
+<svelte:body on:hashchange={onNavigate} />
 
-<header>
-	<div id="logo">
-		<h1><a href="#/"><i>🏆</i> Tourney<b>Earney</b></a></h1>
-	</div>
+<header class:home={$route === '/'}>
+	<a href="#/">
+		<div id="logo">
+			<h1><i>🏆</i> Tourney<b>Earney</b></h1>
+		</div>
+		<div>
+			Dead simple tournament prize distribution
+		</div>
+	</a>
 </header>
 
 <main>
 	{#if $route === '/'}
 		<section transition:fly="{{ y: 200 }}" style="text-align: center">
-			<h2>Host a game. Set prize pools. Reward your players, anytime, anywhere.</h2>
+			<h3>Host a game. Set prize pools. Reward your players, anytime, anywhere.</h3>
 			<a href="#/tournament-setup"><button>Get started</button></a>
 		</section>
 	{:else if $route === '/tournament-setup'}

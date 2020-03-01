@@ -24,6 +24,8 @@
 	const tournament = {...defaultTournamentConfig}
 	const prizeDistribution = tournament.distribution
 
+	const XRP_to_USD = 0.229260
+
 	/* Array.prototype.sum = function(){
 		let sum = 0
 		for(const x of this)
@@ -33,6 +35,10 @@
 	$: totalDistribution = Object.values(tournament).sum() */
 
 	$: totalDistribution = prizeDistribution.firstPrize + prizeDistribution.secondPrize + prizeDistribution.semiFinalists * 2 + prizeDistribution.quarterFinalists * 4 + prizeDistribution.gameHost
+
+
+	let hasPaid = false
+	$: canSubmit = hasPaid
 
 	async function onTournamentFormSubmit(e){
 		console.log(e, tournament)
@@ -48,10 +54,12 @@
 	function resetForm(){
 		Object.assign(tournament, defaultTournamentConfig)
 	}
+
+	import { fly } from 'svelte/transition'
 </script>
 
 <form on:submit|preventDefault={onTournamentFormSubmit}>
-	<h2>Start a tournament</h2>
+	<h2>Start a Tournament</h2>
 
 	<section class="full">
 		<label>
@@ -61,7 +69,7 @@
 
 		<label>
 			<span>Organizer Name</span>
-			<input type="text" name="organizer" placeholder="Mr. Game & Watch" bind:value={tournament.organizer}>
+			<input type="text" name="organizer" placeholder="e.g. Mr. Game & Watch" bind:value={tournament.organizer}>
 		</label>
 	</section>
 
@@ -69,12 +77,12 @@
 		<h3 icon="💰">Fund Prize Pool</h3>
 		<label>
 			<span>Starting Prize Pool</span>
-			<span><input type="number" name="starting-prize-pool" placeholder="0.00" bind:value={tournament.startingPrizePool}> <span class="unit">XRP</span></span> <button>Pay</button>
+			<span><input type="number" name="starting-prize-pool" placeholder="0.00" min="0" bind:value={tournament.startingPrizePool}> <span class="unit">XRP</span> <small>(${tournament.startingPrizePool * XRP_to_USD})</small></span>
 		</label>
 
 		<label>
 			<span>Minimum Entry Fee</span>
-			<span><input type="number" name="entry-fee" placeholder="0.00" bind:value={tournament.minEntryFee}> <span class="unit">XRP / player</span></span>
+			<span><input type="number" name="entry-fee" placeholder="0.00" min="0" bind:value={tournament.minEntryFee}> <span class="unit">XRP / player <small>(${tournament.startingPrizePool * XRP_to_USD} / player)</small></span></span>
 		</label>
 
 		<label>
@@ -84,7 +92,7 @@
 
 		<label>
 			<span>Maximum Number of Players</span>
-			<span><input type="number" name="max-players" placeholder="32" bind:value={tournament.maxPlayers} disabled={!!tournament.unlimitedPlayers}> or fewer players</span>
+			<span><input type="number" name="max-players" placeholder="32" min="4" bind:value={tournament.maxPlayers} disabled={!!tournament.unlimitedPlayers}> or fewer players</span>
 			<small><input type="checkbox" bind:value={tournament.unlimitedPlayers}> Allow Unlimited Players</small>
 		</label>
 	</section>
@@ -128,11 +136,27 @@
 		</p>
 	</section>
 	
+	{#if tournament.startingPrizePool > 0}
+	<section transition:fly={{y: 300}}>
+		<h3 icon="💵">Supply the starting pool</h3>
+
+		<p>Please send <b>{tournament.startingPrizePool} XRP <small>(${tournament.startingPrizePool * XRP_to_USD})</small></b> to the following wallet address:</p>
+
+		<p><b>TV91U2jibTYC9EFrF5GMdqAsJ38WBY5aWeFSrWF17axoAtN</b></p>
+
+		<button>Check for payment</button>
+
+		<button>Pay via Xpring</button>
+
+		<button>Pay via carbon.money</button>
+	</section>
+	{/if}
+	
 	<section>
 		<h3 icon="🎮">Game on!</h3>
 		<div>
-			<input type="submit" value="Publish Tournament" />
-			<button on:click={resetForm}>Start Over</button>
+			<input type="submit" value="Publish Tournament" disabled={!canSubmit} />
+			<button on:click|preventDefault={resetForm}>Start Over</button>
 		</div>
 	</section>
 </form>
