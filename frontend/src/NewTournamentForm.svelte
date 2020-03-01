@@ -1,5 +1,6 @@
 <script>
 	import { addTournament } from './firestore.js'
+	import { generateRandomWallet } from './xpring.js'
 
 	const defaultTournamentConfig = {
 		name: '',
@@ -33,6 +34,9 @@
 
 	async function onTournamentFormSubmit(e){
 		console.log(e, tournament)
+
+		// Generate a wallet
+		tournament.wallet = generateRandomWallet()
 
 		const document = await addTournament(tournament)
 		console.log(document)
