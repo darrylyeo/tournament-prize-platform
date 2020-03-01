@@ -25,7 +25,7 @@
 </section>
 
 <section>
-	<h3 icon="🎮">Registered Players ({registeredPlayers.length}{#if !tournament.unlimitedPlayers} / {tournament.maxPlayers})</h3>
+	<h3 icon="🎮">Registered Players ({registeredPlayers.length}{#if !tournament.unlimitedPlayers} / {tournament.maxPlayers}{/if})</h3>
 	{#each registeredPlayers as player}
 		<div>
 			{player.name}
@@ -86,7 +86,7 @@
 
 		<label>
 			<span>Entry Fee (Minimum {tournament.minEntryFee} XRP)</span>
-			<span><input type="number" name="entry-fee" placeholder="0.00" bind:value={entryFee} bind:min={tournament.minEntryFee}> <span class="unit">XRP</span></span>
+			<span><input type="number" name="entry-fee" placeholder="0.00" bind:value={entryFee} min={tournament.minEntryFee}> <span class="unit">XRP</span></span>
 		</label>
 	</section>
 </form>

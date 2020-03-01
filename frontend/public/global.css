@@ -75,7 +75,7 @@ form {
 }
 form section {
 	display: grid;
-	grid-template-columns: repeat( auto-fill, minmax(15rem, 1fr) );
+	grid-template-columns: repeat( auto-fill, minmax(12rem, 1fr) );
 	grid-auto-rows: max-content;
 	gap: 1rem;
 	padding: 0.75rem;
@@ -100,7 +100,7 @@ input[type=radio] {
 	visibility: hidden;
 	position: fixed;
 }
-input[type=text], input[type=password], input[type=tel], input[type=number], input[type=search],
+input[type=text], input[type=password], input[type=tel], input[type=number], input[type=search], input[type=submit],
 input[type=radio] + span, button, textarea {
 	-webkit-appearance: none;
 	border: none;
@@ -151,6 +151,10 @@ input[type=number] {
 
 ::placeholder {
 	color: var(--color);
+	opacity: 0.5;
+}
+
+[disabled] {
 	opacity: 0.5;
 }
 

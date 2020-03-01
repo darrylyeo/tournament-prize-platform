@@ -12,7 +12,7 @@ firebase.initializeApp({
 var db = firebase.firestore()
 
 function addTournament(tournament){
-	db.collection('Tournaments').add(tournament)
+	return db.collection('Tournaments').add(tournament)
 		.then(docRef => {
 			console.log('Document written: ', docRef)
 			return docRef
@@ -23,7 +23,7 @@ function addTournament(tournament){
 }
 
 function getTournament(tournamentID){
-	db.collection('Tournaments').get(tournamentID)
+	return db.collection('Tournaments').get(tournamentID)
 		.then(docRef => {
 			console.log('Document: ', docRef)
 			return docRef
@@ -34,5 +34,6 @@ function getTournament(tournamentID){
 }
 
 export {
-	addTournament
+	addTournament,
+	getTournament
 }
