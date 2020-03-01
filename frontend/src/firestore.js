@@ -23,10 +23,10 @@ function addTournament(tournament){
 }
 
 function getTournament(tournamentID){
-	return db.collection('Tournaments').get(tournamentID)
+	return db.collection('Tournaments').doc(tournamentID).get()
 		.then(docRef => {
-			console.log('Document: ', docRef)
-			return docRef
+			console.log('Document: ', docRef, docRef.data())
+			return docRef.data()
 		})
 		.catch(error => {
 			console.error('Error getting document: ', error)

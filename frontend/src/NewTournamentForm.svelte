@@ -2,6 +2,8 @@
 	import { addTournament } from './firestore.js'
 	// import { generateRandomWallet } from './xpring.js'
 
+	export let route
+
 	const defaultTournamentConfig = {
 		name: '',
 		organizer: '',
@@ -39,6 +41,7 @@
 		// tournament.wallet = generateRandomWallet()
 
 		const document = await addTournament(tournament)
+		$route = '/tournament/' + document.id
 		console.log(document)
 	}
 
@@ -66,7 +69,7 @@
 		<h3 icon="💰">Fund Prize Pool</h3>
 		<label>
 			<span>Starting Prize Pool</span>
-			<span><input type="number" name="starting-prize-pool" placeholder="0.00" bind:value={tournament.startingPrizePool}> <span class="unit">XRP</span></span>
+			<span><input type="number" name="starting-prize-pool" placeholder="0.00" bind:value={tournament.startingPrizePool}> <span class="unit">XRP</span></span> <button>Pay</button>
 		</label>
 
 		<label>
@@ -81,7 +84,7 @@
 
 		<label>
 			<span>Maximum Number of Players</span>
-			<span><input type="number" name="max-players" placeholder="32" bind:value={tournament.maxPlayers} disabled={tournament.unlimitedPlayers}> or fewer players</span>
+			<span><input type="number" name="max-players" placeholder="32" bind:value={tournament.maxPlayers} disabled={!!tournament.unlimitedPlayers}> or fewer players</span>
 			<small><input type="checkbox" bind:value={tournament.unlimitedPlayers}> Allow Unlimited Players</small>
 		</label>
 	</section>

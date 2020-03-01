@@ -3,7 +3,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
-import globals from 'rollup-plugin-node-globals';
+// import globals from 'rollup-plugin-node-globals';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -37,7 +37,7 @@ export default {
 		}),
 		commonjs(),
 
-		globals(),
+		// globals(),
 
 		// In dev mode, call `npm run start` once
 		// the bundle has been generated
